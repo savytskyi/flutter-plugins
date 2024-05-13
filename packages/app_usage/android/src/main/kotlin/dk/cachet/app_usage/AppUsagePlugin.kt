@@ -62,7 +62,7 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         channel.setMethodCallHandler(null)
     }
 
-    fun handlePermissions(forcePermissions: Bool) {
+    fun handlePermissions(forcePermissions: Boolean) {
         /// If stats are not available, show the permission screen to give access to them
         if (!Stats.checkIfStatsAreAvailable(context)) {
             if (forcePermissions) {
