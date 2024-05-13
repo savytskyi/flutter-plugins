@@ -44,7 +44,7 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     fun getUsage(@NonNull call: MethodCall, @NonNull result: Result) {
         // Firstly, permission must be given by the user must be set correctly by the user
         val forcePermissions: Int? = call.argument("forcePermissions")
-        handlePermissions(forcePermissions)
+        handlePermissions(forcePermissions == 1)
 
         // Parse parameters, i.e. start- and end-date
         val start: Long? = call.argument("start")
