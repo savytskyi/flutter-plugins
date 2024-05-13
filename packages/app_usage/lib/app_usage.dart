@@ -68,6 +68,7 @@ class AppUsage {
   Future<List<AppUsageInfo>> getAppUsage(
     DateTime startDate,
     DateTime endDate,
+    bool forcePermissions
   ) async {
     if (Platform.isAndroid) {
       /// Convert dates to ms since epoch
@@ -75,7 +76,7 @@ class AppUsage {
       int start = startDate.millisecondsSinceEpoch;
 
       /// Set parameters
-      Map<String, int> interval = {'start': start, 'end': end};
+      Map<String, int> interval = {'start': start, 'end': end, 'forcePermissions': forcePermissions};
 
       /// Get result and parse it as a Map of <String, List<double>>
       Map usage = await _methodChannel.invokeMethod('getUsage', interval);
