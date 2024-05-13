@@ -43,7 +43,8 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     fun getUsage(@NonNull call: MethodCall, @NonNull result: Result) {
         // Firstly, permission must be given by the user must be set correctly by the user
-        handlePermissions()
+        val forcePermissions: Int? = call.argument("forcePermissions")
+        handlePermissions(forcePermissions)
 
         // Parse parameters, i.e. start- and end-date
         val start: Long? = call.argument("start")
@@ -61,11 +62,13 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         channel.setMethodCallHandler(null)
     }
 
-    fun handlePermissions() {
+    fun handlePermissions(forcePermissions: Bool) {
         /// If stats are not available, show the permission screen to give access to them
         if (!Stats.checkIfStatsAreAvailable(context)) {
-            val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
-            this.activity.startActivity(intent)
+            if (forcePermissions) {
+                val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+                this.activity.startActivity(intent)
+            }
         }
     }
 
